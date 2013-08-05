@@ -1,0 +1,18 @@
+# - Config file for the FooBar package
+# It defines the following variables
+#  OculusSDK_INCLUDE_DIRS - include directories for OculusSDK
+#  OculusSDK_LIBRARIES    - libraries to link against
+#  OculusSDK_EXECUTABLE   - the bar executable (NONE)
+ 
+# Compute paths
+get_filename_component(OculusSDK_CMAKE_DIR "${CMAKE_CURRENT_LIST_FILE}" PATH)
+set(OculusSDK_INCLUDE_DIRS "@CONF_INCLUDE_DIRS@/OculusSDK/Include")
+message("CONF_INCLUDE>>> @CONF_INCLUDE_DIRS@")
+
+set(OculusSDK_LIBRARY_DIRS @CONF_LIBRARY_DIRS@)
+
+# These are IMPORTED targets created by FooBarTargets.cmake
+set(OculusSDK_LIBRARIES ovr)
+
+#set(OculusSDK_EXECUTABLE)
+set(OculusSDK_FOUND TRUE)
