@@ -477,7 +477,7 @@ int OculusWorldDemoApp::OnStartup(int argc, const char** argv)
     else
     {
         fprintf(stderr, "Usage: OculusWorldDemo [input XML]\n");
-        MainFilePath = WORLDDEMO_ASSET_FILE;	
+        exit(1);
     }
 
     // Try to modify path for correctness in case specified file is not found.
