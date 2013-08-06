@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<package>
+  <name>OculusSDK</name>
+  <version>0.2.3</version>
+  <description>The Oculus Rift SDK</description>
+  <maintainer email="tfoote@osrfoundation.org">Tully Foote</maintainer>
+  <license>Oculus Rift SDK</license>
+  <url type="website">https://developer.oculusvr.com</url>
+  <build_depend>glut</build_depend>
+  <run_depend>libudev-dev</run_depend>
+  <export>
+    <build_type>cmake</build_type>
+  </export>
+</package>
