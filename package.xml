@@ -8,8 +8,8 @@
   <url type="website">https://developer.oculusvr.com</url>
   <buildtool_depend>cmake</buildtool_depend>
   <build_depend>glut</build_depend>
-  <build_depend>libext-dev</build_depend>
   <build_depend>libudev-dev</build_depend>
+  <build_depend>libxext-dev</build_depend>
   <build_depend>libxinerama-dev</build_depend>
   <build_depend>mesa-common-dev</build_depend>
   <run_depend>libudev-dev</run_depend>
