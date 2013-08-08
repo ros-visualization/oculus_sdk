@@ -155,7 +155,7 @@ INSTALL(TARGETS ovr
   ARCHIVE DESTINATION ${INSTALL_LIB_DIR}
 )
 
-option(INSTALL_UDEV_RULES "Install udev rules for Oculus Rift" OFF)
+option(INSTALL_UDEV_RULES "Install udev rules for Oculus Rift" ON)
 IF (INSTALL_UDEV_RULES)
   INSTALL (
     FILES 90-oculus.rules
