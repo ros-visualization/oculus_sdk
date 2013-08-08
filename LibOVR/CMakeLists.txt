@@ -65,6 +65,8 @@ set(SOURCE_FILES
 
 add_library(ovr SHARED ${SOURCE_FILES})
 
+target_link_libraries(ovr udev pthread GL X11 Xinerama)
+
 set(INCLUDE_HEADER_FILES
   Include/OVR.h
   Include/OVRVersion.h
