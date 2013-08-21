@@ -158,7 +158,7 @@ INSTALL(TARGETS ovr
 option(INSTALL_UDEV_RULES "Install udev rules for Oculus Rift" ON)
 IF (INSTALL_UDEV_RULES)
   INSTALL (
-    FILES 90-oculus-groovy.rules
+    FILES 90-oculus-hydro.rules
     DESTINATION "/etc/udev/rules.d"
     COMPONENT "udev"
     )
