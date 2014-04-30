@@ -5,3 +5,5 @@ project(OculusSDK)
 add_subdirectory(LibOVR)
 add_subdirectory(Samples/OculusWorldDemo)
 
+install(FILES package.xml DESTINATION share/oculus_sdk)
+
