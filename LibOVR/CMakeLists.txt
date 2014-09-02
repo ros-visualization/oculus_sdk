@@ -26,15 +26,52 @@ set(INSTALL_CMAKE_DIR ${DEF_INSTALL_CMAKE_DIR} CACHE PATH
 
 include_directories(Include)
 
+if(APPLE)
+  set(PLATFORM_SOURCE_FILES
+    Src/OVR_OSX_DeviceManager.cpp
+    Src/OVR_OSX_HIDDevice.cpp
+    Src/OVR_OSX_HMDDevice.cpp
+    Src/OVR_OSX_SensorDevice.cpp
+  )
+
+  set(PLATFORM_HEADER_FILES
+    Src/OVR_OSX_HIDDevice.h
+    Src/OVR_OSX_DeviceManager.h
+    Src/OVR_OSX_HMDDevice.h
+  )
+
+  find_library(COCOA_LIBRARY Cocoa)
+  find_library(IOKIT_LIBRARY IOKit)
+  set(EXTRA_LIBS ${COCOA_LIBRARY} ${IOKIT_LIBRARY})
+
+elseif(UNIX)
+  set(PLATFORM_SOURCE_FILES
+    Src/OVR_Linux_DeviceManager.cpp
+    Src/OVR_Linux_HIDDevice.cpp
+    Src/OVR_Linux_HMDDevice.cpp
+    Src/OVR_Linux_SensorDevice.cpp
+  )
+
+  set(PLATFORM_HEADER_FILES
+    Src/OVR_Linux_HIDDevice.h
+    Src/OVR_Linux_DeviceManager.h
+    Src/OVR_Linux_HMDDevice.h
+  )
+
+  set(EXTRA_LIBS
+    udev
+    pthread
+    GL
+    X11
+    Xinerama
+  )
+endif()
+
 set(SOURCE_FILES
   Src/OVR_DeviceHandle.cpp
   Src/OVR_DeviceImpl.cpp
   Src/OVR_JSON.cpp
   Src/OVR_LatencyTestImpl.cpp
-  Src/OVR_Linux_DeviceManager.cpp
-  Src/OVR_Linux_HIDDevice.cpp
-  Src/OVR_Linux_HMDDevice.cpp
-  Src/OVR_Linux_SensorDevice.cpp
   Src/OVR_Profile.cpp
   Src/OVR_SensorFilter.cpp
   Src/OVR_SensorFusion.cpp
@@ -60,12 +97,12 @@ set(SOURCE_FILES
   Src/Kernel/OVR_ThreadsPthread.cpp
   Src/Kernel/OVR_Timer.cpp
   Src/Kernel/OVR_UTF8Util.cpp
-  
-  )
+  ${PLATFORM_SOURCE_FILES}
+)
 
 add_library(ovr SHARED ${SOURCE_FILES})
 
-target_link_libraries(ovr udev pthread GL X11 Xinerama)
+target_link_libraries(ovr ${EXTRA_LIBS})
 
 set(INCLUDE_HEADER_FILES
   Include/OVR.h
@@ -73,8 +110,6 @@ set(INCLUDE_HEADER_FILES
 )
 
 set(SRC_HEADER_FILES
-  Src/OVR_Linux_HIDDevice.h
-  Src/OVR_Linux_DeviceManager.h
   Src/OVR_SensorFilter.h
   Src/OVR_Win32_DeviceManager.h
   Src/OVR_Win32_HIDDevice.h
@@ -86,7 +121,6 @@ set(SRC_HEADER_FILES
   Src/OVR_OSX_DeviceManager.h
   Src/OVR_DeviceHandle.h
   Src/OVR_HIDDevice.h
-  Src/OVR_Linux_HMDDevice.h
   Src/OVR_Win32_DeviceStatus.h
   Src/OVR_HIDDeviceBase.h
   Src/OVR_JSON.h
@@ -99,6 +133,7 @@ set(SRC_HEADER_FILES
   Src/OVR_LatencyTestImpl.h
   Src/OVR_SensorImpl.h
   Src/OVR_DeviceMessages.h
+  ${PLATFORM_HEADER_FILES}
 )
 set(KERNEL_HEADER_FILES
   Src/Kernel/OVR_Threads.h
@@ -155,16 +190,18 @@ INSTALL(TARGETS ovr
   ARCHIVE DESTINATION ${INSTALL_LIB_DIR}
 )
 
-option(INSTALL_UDEV_RULES "Install udev rules for Oculus Rift" ON)
-IF (INSTALL_UDEV_RULES)
-  INSTALL (
-    FILES 90-oculus-hydro.rules
-    DESTINATION "/etc/udev/rules.d"
-    COMPONENT "udev"
-    )
-else (INSTALL_UDEV_RULES)
-  message (STATUS "Udev rules not being installed, install them with -DINSTALL_UDEV_RULES=ON")
-endif (INSTALL_UDEV_RULES)
+if (NOT APPLE)
+  option(INSTALL_UDEV_RULES "Install udev rules for Oculus Rift" ON)
+  IF (INSTALL_UDEV_RULES)
+    INSTALL (
+      FILES 90-oculus-hydro.rules
+      DESTINATION "/etc/udev/rules.d"
+      COMPONENT "udev"
+      )
+  else (INSTALL_UDEV_RULES)
+    message (STATUS "Udev rules not being installed, install them with -DINSTALL_UDEV_RULES=ON")
+  endif (INSTALL_UDEV_RULES)
+endif()
 
 
 
