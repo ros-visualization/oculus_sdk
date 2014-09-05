@@ -29,7 +29,7 @@ SET(SOURCE_FILES
   ../../Samples/CommonSrc/Render/Render_LoadTextureDDS.cpp
   ../../Samples/CommonSrc/Render/Render_LoadTextureTGA.cpp
   ../../Samples/CommonSrc/Render/Render_XmlSceneLoader.cpp
-  ${PLATFORM_FILES}
+  ${PLATFORM_SOURCE_FILES}
   )
 
 
