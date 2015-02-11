@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>oculus_sdk</name>
-  <version>0.2.3</version>
+  <version>0.2.4</version>
   <description>The Oculus Rift SDK</description>
   <maintainer email="tfoote@osrfoundation.org">Tully Foote</maintainer>
   <license>Oculus Rift SDK</license>
